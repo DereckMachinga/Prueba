@@ -5,6 +5,7 @@ import './index.css'
 import router from '../Router/route';
 import { RouterProvider } from 'react-router-dom';
 import { AppProvider } from './Context/AppProvider';
+import i18n from './lang/i18n';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

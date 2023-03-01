@@ -9,9 +9,10 @@ const AppProvider = ({children}) => {
     const [ parameters, setParameters ] = useState([]);
     const [ loader, setLoader ] = useState(false);
 
-
-
     
+
+
+
     // multiples fetch 
     const consultarApi = async () => {
         let url_1 = "https://api.kiosco.bitzperu.com/es/bitz/admin/entity/coupon/list";
@@ -41,7 +42,7 @@ const AppProvider = ({children}) => {
                 estado,
                 setEstado,
                 cupons, parameters,
-                loader
+                loader, 
             }}
         >
             { children }
