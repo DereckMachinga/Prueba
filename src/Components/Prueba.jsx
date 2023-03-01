@@ -2,6 +2,7 @@ import React from 'react'
 import useAppContext from '../Hooks/useAppContext'
 import Loader from './Loader';
 import { useTranslation, Trans  } from 'react-i18next';
+import Swal from 'sweetalert2'
 
 const Prueba = () => {
     const { t, i18n  } = useTranslation();
@@ -13,6 +14,14 @@ const Prueba = () => {
     const { setEstado, estado, loader } = useAppContext();
     const handleClick = () => {
         setEstado(estado+1);   
+    }
+    const SweetAlert = () => {
+        Swal.fire({
+            title: 'Error!',
+            text: 'Do you want to continue',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+        });
     }
     return (
         <div className='center-div'>
@@ -33,6 +42,7 @@ const Prueba = () => {
                     {t('Prueba')}
                 </Trans>            
             </span>
+            <button onClick={()=> SweetAlert()}>SweetAlert</button>
             <span>{estado}</span>
             {  !loader ? <Loader/>: '' }
         </div>
