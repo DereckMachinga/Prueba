@@ -3,6 +3,7 @@ import useAppContext from '../Hooks/useAppContext'
 import Loader from './Loader';
 import { useTranslation, Trans  } from 'react-i18next';
 import Swal from 'sweetalert2'
+import Header from './templates/Header';
 
 const Prueba = () => {
     const { t, i18n  } = useTranslation();
@@ -23,11 +24,17 @@ const Prueba = () => {
             confirmButtonText: 'Cool'
         });
     }
+    const ChangeLanguage = (lng)=> {
+        i18n.changeLanguage(lng);
+        
+    }
     return (
+    <>
+        <Header/>
         <div className='center-div'>
             <div>
                 {Object.keys(lngs).map((lng) => (
-                    <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => i18n.changeLanguage(lng)}>
+                    <button key={lng} style={{ fontWeight: i18n.resolvedLanguage === lng ? 'bold' : 'normal' }} type="submit" onClick={() => ChangeLanguage(lng)}>
                     {lngs[lng].nativeName}
                     </button>
                 ))}
@@ -43,9 +50,10 @@ const Prueba = () => {
                 </Trans>            
             </span>
             <button onClick={()=> SweetAlert()}>SweetAlert</button>
-            <span>{estado}</span>
-            {  !loader ? <Loader/>: '' }
+            <a href={ `/${t('url')}`}>{t('url')}</a>
+            {/* {  !loader ? <Loader/>: '' } */}
         </div>
+    </>
     )
 }
 

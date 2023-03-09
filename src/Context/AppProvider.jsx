@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState} from "react";
-
+import Swal from 'sweetalert2'
 const AppContext = createContext();
 
 const AppProvider = ({children}) => {
@@ -8,8 +8,8 @@ const AppProvider = ({children}) => {
     const [ cupons, setCupons ] = useState([]);
     const [ parameters, setParameters ] = useState([]);
     const [ loader, setLoader ] = useState(false);
-
-    
+    const [ currencies, setCurrencies ] = useState([]);
+    const [ language, setLanguage ] = useState("");    
 
 
 
@@ -25,14 +25,28 @@ const AppProvider = ({children}) => {
         let parametros = await res2.json();
         setCupons(cupones);
         setParameters(parametros);
+        
     }
+    const consultasHeader = async() => {
+        let url_1 = "https://api.merlishop.com/es/masterhouse/site/entity/currency/get";
 
+        const [ res ] =  await Promise.all([fetch(url_1, {
+            method: 'POST',
+            headers: {"Content-type": "application/json"}
+        })]);
+
+        let  monedas = await res.json();
+        console.log(monedas);
+        setCurrencies(monedas);
+
+    }
     useEffect(()=> {
         setTimeout(() => {
             setLoader(!loader);
+            consultasHeader();
             consultarApi();
-            setLoader(!loader);
         }, 3000);
+        setLoader(!loader);
 
     }, []);
 
@@ -43,6 +57,8 @@ const AppProvider = ({children}) => {
                 setEstado,
                 cupons, parameters,
                 loader, 
+                currencies,
+                setLanguage, language
             }}
         >
             { children }
